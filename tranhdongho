@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Khám Phá Nghệ Thuật Tranh Đông Hồ</title>
+    <style>
+        :root {
+            --paper-color: #fdf6e3;
+            --ink-red: #a52a2a;
+            --ink-black: #2c2c2c;
+            --ink-green: #2d5a27;
+            --accent-gold: #d4af37;
+            --text-color: #444;
+        }
+
+        * {
+            box-sizing: border-box;
+            transition: all 0.3s ease;
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: #e8dcc4;
+            background-image: url('https://www.transparenttextures.com/patterns/paper-fibers.png');
+            color: var(--text-color);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .container {
+            max-width: 1000px;
+            width: 100%;
+            background: var(--paper-color);
+            padding: 40px;
+            border: 15px solid transparent;
+            border-image: url('https://www.transparenttextures.com/patterns/wood-pattern.png') 30 round;
+            outline: 2px solid var(--accent-gold);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            position: relative;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        h1 {
+            color: var(--ink-red);
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+
+        .subtitle {
+            font-style: italic;
+            color: #777;
+            border-bottom: 1px double var(--accent-gold);
+            display: inline-block;
+            padding-bottom: 5px;
+        }
+
+        .menu-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 12px;
+            margin-bottom: 30px;
+        }
+
+        .menu-item {
+            background-color: #fff;
+            border: 2px solid var(--ink-red);
+            padding: 12px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1.05rem;
+            font-weight: 600;
+            color: var(--ink-red);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 2px 2px 5px rgba(0,0,0,0.05);
+        }
+
+        .menu-item:hover {
+            background-color: var(--ink-red);
+            color: white;
+            transform: translateX(8px);
+        }
+
+        .menu-item.active {
+            background-color: var(--ink-red);
+            color: white;
+            border-color: var(--ink-black);
+        }
+
+        #content-display {
+            padding: 30px;
+            background: white;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+            min-height: 150px;
+            opacity: 0;
+            transform: translateY(20px);
+            display: none;
+            box-shadow: inset 0 0 10px rgba(0,0,0,0.02);
+            margin-bottom: 40px;
+        }
+
+        #content-display.show {
+            display: block;
+            animation: slideUp 0.5s forwards;
+        }
+
+        @keyframes slideUp {
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .text-body {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            text-align: justify;
+            color: #333;
+        }
+
+        .highlight {
+            color: var(--ink-red);
+            font-weight: bold;
+            border-bottom: 1px dashed var(--ink-red);
+        }
+
+        /* Gallery Styles Optimized */
+        .gallery-section {
+            margin-top: 50px;
+            border-top: 2px solid var(--accent-gold);
+            padding-top: 30px;
+        }
+
+        .gallery-title {
+            text-align: center;
+            color: var(--ink-red);
+            font-size: 1.8rem;
+            margin-bottom: 25px;
+            text-transform: uppercase;
+        }
+
+        /* Responsive Grid: 2 columns on small, 3+ on large */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        @media (min-width: 768px) {
+            .gallery-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        .gallery-item {
+            background: white;
+            padding: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            border-radius: 2px;
+            display: flex;
+            flex-direction: column;
+            border: 1px solid #eee;
+            transition: transform 0.3s ease;
+        }
+
+        .gallery-item:hover {
+            transform: scale(1.03);
+        }
+
+        .img-container {
+            width: 100%;
+            aspect-ratio: 1 / 1;
+            overflow: hidden;
+            background: #fdfdfd;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid #f0f0f0;
+        }
+
+        .gallery-item img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+
+        .gallery-caption {
+            padding: 12px 5px 5px 5px;
+            font-size: 0.95rem;
+            text-align: center;
+            font-weight: 600;
+            color: var(--ink-red);
+        }
+
+        footer {
+            margin-top: 40px;
+            text-align: center;
+            font-size: 0.85rem;
+            color: #888;
+            border-top: 1px solid #eee;
+            padding-top: 20px;
+        }
+
+        @media (max-width: 600px) {
+            .container { padding: 20px; }
+            h1 { font-size: 1.8rem; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>Tranh Dân Gian Đông Hồ</h1>
+        <p class="subtitle">Hồn dân tộc sáng bừng trên giấy điệp</p>
+    </header>
+
+    <div class="menu-grid">
+        <div class="menu-item" onclick="loadContent(1, this)">
+            <span>1. Đề tài dân dã, hình tượng sinh động</span>
+            <span>➔</span>
+        </div>
+        <div class="menu-item" onclick="loadContent(2, this)">
+            <span>2. Chất liệu tự nhiên, sắc màu bình dị</span>
+            <span>➔</span>
+        </div>
+        <div class="menu-item" onclick="loadContent(3, this)">
+            <span>3. Chế tác khéo léo, công phu</span>
+            <span>➔</span>
+        </div>
+        <div class="menu-item" onclick="loadContent(4, this)">
+            <span>4. Rộn ràng tranh Tết</span>
+            <span>➔</span>
+        </div>
+        <div class="menu-item" onclick="loadContent(5, this)">
+            <span>5. Lưu giữ và phục chế</span>
+            <span>➔</span>
+        </div>
+    </div>
+
+    <div id="content-display">
+        <div class="text-body" id="text-container"></div>
+    </div>
+
+    <div class="gallery-section">
+        <h2 class="gallery-title">Kho Trưng Bày Tranh Đông Hồ</h2>
+        <div class="gallery-grid">
+            <!-- Cặp Vinh Hoa - Phú Quý xếp cạnh nhau -->
+            <div class="gallery-item">
+                <div class="img-container">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/0/0d/Vinh_hoa.JPG" alt="Vinh Hoa">
+                </div>
+                <div class="gallery-caption">Tranh "Vinh Hoa"</div>
+            </div>
+            <div class="gallery-item">
+                <div class="img-container">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/0/0e/Ph%C3%BA_qu%C3%BD.JPG" alt="Phú quý">
+                </div>
+                <div class="gallery-caption">Tranh "Phú Quý"</div>
+            </div>
+
+            <!-- Các tranh khác -->
+            <div class="gallery-item">
+                <div class="img-container">
+                    <img src="https://media-cdn-v2.laodong.vn/storage/newsportal/2020/1/20/779763/Dam-Cuoi-Chuot.jpg" alt="Đám cưới chuột">
+                </div>
+                <div class="gallery-caption">Tranh "Đám cưới chuột"</div>
+            </div>
+            <div class="gallery-item">
+                <div class="img-container">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/f/fc/%C4%90%C3%A1nh_ghen.JPG" alt="Đánh Ghen">
+                </div>
+                <div class="gallery-caption">Tranh "Đánh Ghen"</div>
+            </div>
+            <div class="gallery-item">
+                <div class="img-container">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/6/68/H%C3%A1i_d%E1%BB%ABa.JPG" alt="Hứng dừa">
+                </div>
+                <div class="gallery-caption">Tranh "Hứng dừa"</div>
+            </div>
+            <div class="gallery-item">
+                <div class="img-container">
+                    <img src="https://hoanghamobile.com/tin-tuc/wp-content/webp-express/webp-images/uploads/2023/08/tranh-dong-ho-2.jpg.webp" alt="Lợn đàn">
+                </div>
+                <div class="gallery-caption">Tranh "Lợn đàn"</div>
+            </div>
+            <div class="gallery-item">
+                <div class="img-container">
+                    <img src="https://www.galeriemichael.com/wp-content/uploads/images/tong-quan-ve-tranh-dong-ho-chan-trau-thoi-sao-0.jpg" alt="Mục đồng thổi sáo">
+                </div>
+                <div class="gallery-caption">Tranh "Trâu Sen"</div>
+            </div>
+            <div class="gallery-item">
+                <div class="img-container">
+                    <img src="https://lh6.googleusercontent.com/proxy/-hud5bRZF6Bv5AvHB3H3WKiqNfiTn_TCH2vYzAp7mpjWms_OjExzu_VugubydLd5q3wJqnVm-4cgqDnrPE_TsN4NN8DlFCUgqR-EPl5vj7ohPbyTk5BGsQ" alt="Gà đại cát">
+                </div>
+                <div class="gallery-caption">Tranh "Gà đại cát"</div>
+            </div>
+            <div class="gallery-item">
+                <div class="img-container">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/67/Tranh_%C4%90%C3%B4ng_H%E1%BB%93_%C3%94ng_T%C3%A1o.jpg/330px-Tranh_%C4%90%C3%B4ng_H%E1%BB%93_%C3%94ng_T%C3%A1o.jpg" alt="Nguyên liệu làm tranh">
+                </div>
+                <div class="gallery-caption">Tranh "Ông Táo"</div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        Nhóm Thực Hiện: Khối 10 Trường PTDTNT Tỉnh Lâm Đồng
+    </footer>
+</div>
+
+<script>
+    const data = {
+        1: {
+            text: "Từ những hình ảnh mộc mạc, bình dị của làng quê như <span class='highlight'>gà, lợn, trâu, bò, tôm, cá,...</span> các nghệ nhân Đông Hồ đã vẽ nên những bức tranh ngộ nghĩnh, tràn đầy sức sống và gửi gắm nhiều ước mong. Khi vào tranh, gà thì thành <span class='highlight'>Gà đại cát, Gà thư hùng</span>; trâu thành <span class='highlight'>Trâu sen</span>, lợn thành <span class='highlight'>Lợn đàn, Lợn độc</span>; em bé âu yếm, đùa nghịch với con gà, con tôm thì thành các hình tượng <span class='highlight'>Bé ôm gà (Vinh hoa), Bé ôm vịt (Phú quý),...</span> Những mặt trái, những góc khuất của đời sống nông thôn vào tranh trở thành những câu chuyện hài hước được kể bằng đường nét màu sắc trong <span class='highlight'>Đám cưới chuột, Trạng chuột vinh quy, Thầy đồ Cóc, Truyện Trê – Cóc, Hứng dừa, Đánh ghen,...</span>"
+        },
+        2: {
+            text: "Phong vị dân gian của tranh Đông Hồ thấm nhuần trong ý tưởng, cảm hứng nghệ thuật, đường nét, bố cục cũng như chất liệu giấy, màu sắc, quá trình chế tác... <br><br>Giấy in tranh Đông Hồ được gọi là <span class='highlight'>giấy điệp</span>: vỏ con điệp (sò biển) được nghiền nát, trộn với hồ rồi dùng chổi lá thông quét lên mặt giấy đó. Màu sắc sử dụng trong tranh là <span class='highlight'>màu tự nhiên</span> lấy từ cây cỏ: màu đen từ than xoan hay than lá tre; màu xanh từ gỉ đồng, lá chàm; màu vàng từ hoa hoè; màu đỏ từ sỏi son, gỗ vang,... Bốn gam màu cơ bản này tương ứng với một bộ thường gồm bốn bản khắc gỗ để in tranh Đông Hồ."
+        },
+        3: {
+            text: "Các nghệ nhân đã lấy đề tài ngay trong cuộc sống hằng ngày hoặc từ các truyện dân gian để vẽ mẫu. Khi hoàn chỉnh bản thảo, người sáng tác can lại rõ ràng từng nét, từng bảng màu bằng mực nho để đưa vào <span class='highlight'>bản khắc gỗ</span>. <br><br>Khi in, người làm tranh úp ván xuống 'bìa' đã quét đẫm màu, lấy màu vào bản khắc rồi úp lên mặt giấy như cách đóng triện. Thợ in lấy <span class='highlight'>xơ mướp</span> xoa đều lưng mặt giấy để mực màu thấm đều, sau đó nhẹ nhàng bóc tờ giấy khỏi ván in. Tranh bao nhiêu màu, in bấy nhiêu lần."
+        },
+        4: {
+            text: "Cứ khoảng tháng 7, tháng 8 hằng năm, cả làng đã tất bật cho <span class='highlight'>mùa tranh Tết</span>. Khắp làng rực rỡ sắc màu của giấy điệp, không một mảnh đất trống nào không được tận dụng để phơi giấy: từ sân nhà, ven ngõ xóm đến triền đê cho đến các nóc nhà, nóc bếp... <br><br>Mỗi năm một lần, <span class='highlight'>chợ tranh</span> họp vào tháng Chạp trong các ngày 6, 11, 16, 21, 26 tại đình làng. Chợ đông vui, sầm uất; người dân mua tranh về dán trên tường, hết năm lại lột bỏ, dùng tranh mới."
+        },
+        5: {
+            text: "Làng tranh Đông Hồ từng có thời cực thịnh từ cuối thế kỉ XIX đến những năm 40 của thế kỉ XX. Trước nguy cơ mai một do thương mại hóa, thật may là vẫn còn những nghệ nhân giàu tâm huyết vượt qua khó khăn để <span class='highlight'>duy trì nghề tranh</span>. <br><br>Đặc biệt, việc kịp thời thu mua lại, lưu giữ cả trăm bản khắc cổ, đồng thời <span class='highlight'>phục chế hàng trăm bản khắc gỗ</span> khác là một trong những cách đầu tiên và hiệu quả nhất để cứu lấy dòng tranh quý giá này."
+        }
+    };
+
+    function loadContent(id, element) {
+        document.querySelectorAll('.menu-item').forEach(item => item.classList.remove('active'));
+        element.classList.add('active');
+
+        const display = document.getElementById('content-display');
+        const textContainer = document.getElementById('text-container');
+
+        display.classList.remove('show');
+        
+        setTimeout(() => {
+            textContainer.innerHTML = data[id].text;
+            display.style.display = 'block';
+            display.classList.add('show');
+        }, 150);
+    }
+
+    window.onload = () => {
+        const firstItem = document.querySelector('.menu-item');
+        loadContent(1, firstItem);
+    };
+</script>
+
+</body>
+</html>
