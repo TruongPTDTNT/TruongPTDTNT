@@ -169,6 +169,7 @@
             flex-direction: column;
             border: 1px solid #eee;
             transition: transform 0.3s ease;
+            cursor: zoom-in;
         }
 
         .gallery-item:hover {
@@ -198,6 +199,49 @@
             text-align: center;
             font-weight: 600;
             color: var(--ink-red);
+        }
+
+        /* Lightbox Overlay */
+        .lightbox {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            cursor: zoom-out;
+            padding: 20px;
+        }
+
+        .lightbox img {
+            max-width: 90%;
+            max-height: 85%;
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+            border: 5px solid white;
+            border-radius: 4px;
+        }
+
+        .lightbox-caption {
+            position: absolute;
+            bottom: 30px;
+            color: white;
+            font-size: 1.2rem;
+            font-weight: bold;
+            text-align: center;
+            width: 100%;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            color: white;
+            font-size: 2rem;
+            cursor: pointer;
         }
 
         footer {
@@ -254,25 +298,25 @@
         <h2 class="gallery-title">Kho Trưng Bày Tranh Đông Hồ</h2>
         <div class="gallery-grid">
             <!-- Thứ tự yêu cầu: Vinh Hoa -> Phú Quý -> Đánh Ghen -> Hứng Dừa -->
-            <div class="gallery-item">
+            <div class="gallery-item" onclick="openLightbox(this)">
                 <div class="img-container">
                     <img src="https://upload.wikimedia.org/wikipedia/commons/0/0d/Vinh_hoa.JPG" alt="Vinh Hoa">
                 </div>
                 <div class="gallery-caption">Tranh "Vinh Hoa"</div>
             </div>
-            <div class="gallery-item">
+            <div class="gallery-item" onclick="openLightbox(this)">
                 <div class="img-container">
                     <img src="https://upload.wikimedia.org/wikipedia/commons/0/0e/Ph%C3%BA_qu%C3%BD.JPG" alt="Phú quý">
                 </div>
                 <div class="gallery-caption">Tranh "Phú Quý"</div>
             </div>
-            <div class="gallery-item">
+            <div class="gallery-item" onclick="openLightbox(this)">
                 <div class="img-container">
                     <img src="https://upload.wikimedia.org/wikipedia/commons/f/fc/%C4%90%C3%A1nh_ghen.JPG" alt="Đánh Ghen">
                 </div>
                 <div class="gallery-caption">Tranh "Đánh Ghen"</div>
             </div>
-            <div class="gallery-item">
+            <div class="gallery-item" onclick="openLightbox(this)">
                 <div class="img-container">
                     <img src="https://upload.wikimedia.org/wikipedia/commons/6/68/H%C3%A1i_d%E1%BB%ABa.JPG" alt="Hứng dừa">
                 </div>
@@ -280,13 +324,13 @@
             </div>
 
             <!-- Đám cưới chuột và Chuột rước đèn -->
-            <div class="gallery-item">
+            <div class="gallery-item" onclick="openLightbox(this)">
                 <div class="img-container">
                     <img src="https://media-cdn-v2.laodong.vn/storage/newsportal/2020/1/20/779763/Dam-Cuoi-Chuot.jpg" alt="Đám cưới chuột">
                 </div>
                 <div class="gallery-caption">Tranh "Đám cưới chuột"</div>
             </div>
-            <div class="gallery-item">
+            <div class="gallery-item" onclick="openLightbox(this)">
                 <div class="img-container">
                     <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/48/Chu%E1%BB%99t_r%C6%B0%E1%BB%9Bc_%C4%91%C3%A8n.JPG/1280px-Chu%E1%BB%99t_r%C6%B0%E1%BB%9Bc_%C4%91%C3%A8n.JPG" alt="Chuột rước đèn">
                 </div>
@@ -294,25 +338,25 @@
             </div>
 
             <!-- Các tranh khác tiếp theo -->
-            <div class="gallery-item">
+            <div class="gallery-item" onclick="openLightbox(this)">
                 <div class="img-container">
                     <img src="https://hoanghamobile.com/tin-tuc/wp-content/webp-express/webp-images/uploads/2023/08/tranh-dong-ho-2.jpg.webp" alt="Lợn đàn">
                 </div>
                 <div class="gallery-caption">Tranh "Lợn đàn"</div>
             </div>
-            <div class="gallery-item">
+            <div class="gallery-item" onclick="openLightbox(this)">
                 <div class="img-container">
                     <img src="https://www.galeriemichael.com/wp-content/uploads/images/tong-quan-ve-tranh-dong-ho-chan-trau-thoi-sao-0.jpg" alt="Mục đồng thổi sáo">
                 </div>
                 <div class="gallery-caption">Tranh "Trâu Sen"</div>
             </div>
-            <div class="gallery-item">
+            <div class="gallery-item" onclick="openLightbox(this)">
                 <div class="img-container">
                     <img src="https://lh6.googleusercontent.com/proxy/-hud5bRZF6Bv5AvHB3H3WKiqNfiTn_TCH2vYzAp7mpjWms_OjExzu_VugubydLd5q3wJqnVm-4cgqDnrPE_TsN4NN8DlFCUgqR-EPl5vj7ohPbyTk5BGsQ" alt="Gà đại cát">
                 </div>
                 <div class="gallery-caption">Tranh "Gà đại cát"</div>
             </div>
-            <div class="gallery-item">
+            <div class="gallery-item" onclick="openLightbox(this)">
                 <div class="img-container">
                     <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/67/Tranh_%C4%90%C3%B4ng_H%E1%BB%93_%C3%94ng_T%C3%A1o.jpg/330px-Tranh_%C4%90%C3%B4ng_H%E1%BB%93_%C3%94ng_T%C3%A1o.jpg" alt="Ông Táo">
                 </div>
@@ -324,6 +368,13 @@
     <footer>
         Nhóm Thực Hiện: Khối 10 Trường PTDTNT Tỉnh Lâm Đồng
     </footer>
+</div>
+
+<!-- Lightbox Overlay Structure -->
+<div id="lightboxOverlay" class="lightbox" onclick="closeLightbox()">
+    <span class="close-btn">&times;</span>
+    <img id="lightboxImg" src="" alt="Phóng to">
+    <div id="lightboxCaption" class="lightbox-caption"></div>
 </div>
 
 <script>
@@ -359,6 +410,26 @@
             display.style.display = 'block';
             display.classList.add('show');
         }, 150);
+    }
+
+    // Lightbox Logic
+    function openLightbox(element) {
+        const imgSrc = element.querySelector('img').src;
+        const imgCaption = element.querySelector('.gallery-caption').innerText;
+        
+        const overlay = document.getElementById('lightboxOverlay');
+        const lbImg = document.getElementById('lightboxImg');
+        const lbCap = document.getElementById('lightboxCaption');
+        
+        lbImg.src = imgSrc;
+        lbCap.innerText = imgCaption;
+        overlay.style.display = 'flex';
+        document.body.style.overflow = 'hidden'; // Ngăn cuộn trang khi đang xem ảnh
+    }
+
+    function closeLightbox() {
+        document.getElementById('lightboxOverlay').style.display = 'none';
+        document.body.style.overflow = 'auto';
     }
 
     window.onload = () => {
